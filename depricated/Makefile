@@ -1,4 +1,4 @@
-RELEASE := 6.1.0-20-arm64
+RELEASE := $(shell uname -r)
 KERNEL := /lib/modules/$(RELEASE)/build
 # PWD doesn't have to be defined as it's inherited from the current environment
 # MAKE shouldn't be defined as it's special in GNU make
@@ -6,8 +6,7 @@ KERNEL := /lib/modules/$(RELEASE)/build
 # the names of these variables are required by the kernel's (imo weird) build
 # system, see [kbuild-obj-var] and [kbuild-module-makefile] in ../readme.md
 obj-m += redhue.o
-redhue-y += main.o
-redhue-y += rw.o
+redhue-y += hello.o
 
 all:
 	$(MAKE) -C $(KERNEL) M=$(PWD) modules
@@ -19,5 +18,3 @@ compile_commands.json:
 	jq --arg dir $(KERNEL) '.[].directory = $$dir' $@.tmp > $@
 	$(RM) $@.tmp
 
-clean:
-	$(MAKE) -C $(KERNEL) M=$(PWD) clean

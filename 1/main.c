@@ -31,7 +31,11 @@ static int hello_init(void) {
 	cdev_init(cdev, &he_rw);
 
 	cdev_num = MKDEV(500, 0);
-	register_chrdev_region(cdev_num, 1, CHR_NAME);
+	// if (alloc_chrdev_region(&cdev_num, 0, 1, CHR_NAME) < 0) {
+	if (register_chrdev_region(cdev_num, 1, CHR_NAME) < 0) {
+		//ToDo ERROR HANDLING
+		printk("region error");
+	}
 	if (cdev_add(cdev, cdev_num, 1) < 0){
 		//TODO: ERROR HANDLING
 		printk("oops");

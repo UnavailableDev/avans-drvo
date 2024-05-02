@@ -4,6 +4,7 @@
 
 #include "rw.h"
 
+#define CHR_NAME "redhue"
 
 dev_t cdev_num;
 
@@ -21,19 +22,27 @@ static int hello_init(void) {
 	printk(KERN_ALERT "Hello, world\n");
 	
 	cdev = cdev_alloc();
+	if (!cdev) {
+		printk(KERN_ALERT "error");
+		cdev_del(cdev);
+		return 1;
+	}
 	cdev->ops = &he_rw;
-	// cdev_init(cdev, *he_rw);
+	cdev_init(cdev, &he_rw);
 
-	// if (cdev_add(cdev, cdev_num, 1) < 0){
+	cdev_num = MKDEV(500, 0);
+	register_chrdev_region(cdev_num, 1, CHR_NAME);
+	if (cdev_add(cdev, cdev_num, 1) < 0){
 		//TODO: ERROR HANDLING
-
-	// }
-	// printk("%d", MAJOR(cdev_num));
+		printk("oops");
+	}
+	printk("%d", MAJOR(cdev_num));
 	return 0;
 }
 
 static void hello_exit(void) {
 	printk(KERN_ALERT "Goodbye, world\n");
+	unregister_chrdev_region(cdev_num, 1);
 	cdev_del(cdev);
 }
 

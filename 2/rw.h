@@ -5,7 +5,7 @@
 #include <linux/io.h>
 
 /* PIN */
-#define PIN 19
+#define PIN 18
 /* base address */
 #define GPIO1_ADDR 0x4804c000
 /* register offsets in uint32_t sizes */

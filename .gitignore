@@ -5,6 +5,8 @@
 *.mod.c
 *.out
 
+*.dtb
+
 modules.order
 Module.symvers
 

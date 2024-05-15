@@ -780,7 +780,7 @@
 					pinctrl-single,register-width = <0x20>;
 					pinctrl-single,function-mask = <0x7f>;
 					phandle = <0x262>;
-					
+
 					user_leds_s0 {
 						pinctrl-single,pins = <0x54 0x7 0x58 0x17 0x5c 0x7 0x60 0x17>;
 						phandle = <0x237>;
@@ -6104,12 +6104,6 @@
 			linux,default-trigger = "mmc1";
 			default-state = "off";
 		};
-
-		redhue_led {
-			compatible = "gpio-extern";
-			gpios = <0x5a 0x12 0x00>;
-			phandle = <0x30e>;
-		};
 	};
 
 	fixedregulator0 {
@@ -6828,4 +6822,3 @@
 		vmmcsd_fixed = "/fixedregulator0";
 	};
 };
-
